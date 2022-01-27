@@ -6,6 +6,8 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] EnemyAI enemyAI;
 
+    PlayerHealth playerHealth;
+
     public void GetEnemyAI()
     {
         enemyAI.CallEnemyAI();

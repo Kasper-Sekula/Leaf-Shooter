@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //enemyController.DealDamageToPlayer();
         enemyController.GetEnemyAI();
         playerController.CallPlayerMovement();
         weaponController.CallWeaponAttack();

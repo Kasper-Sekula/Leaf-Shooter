@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +7,10 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] float chaseRange = 20f;
+    [SerializeField] float enemyDamage = 20f;
     
     float distanceToPlayer = Mathf.Infinity;
+    bool ifDamageRecently = false;
     NavMeshAgent navMeshAgent;
     Transform target;
 
@@ -34,8 +37,34 @@ public class EnemyAI : MonoBehaviour
 
         if (distanceToPlayer <= chaseRange)
         {
-            navMeshAgent.SetDestination(target.position);
+            if (distanceToPlayer <= navMeshAgent.stoppingDistance +1f)
+            {
+                PlayerHealth playerHealth =  target.GetComponent<PlayerHealth>();
+                if (playerHealth == null) { return; }
+
+                if (!ifDamageRecently)
+                {
+                    target.GetComponent<PlayerHealth>().DealDamage(enemyDamage);
+                    StartCoroutine(AttackPlayer());
+                }
+            }
+
+            if (distanceToPlayer >= navMeshAgent.stoppingDistance)
+            {
+                ChasePlayer();
+            }
         }
+    }
+    private IEnumerator AttackPlayer()
+    {
+        ifDamageRecently = true;
+        yield return new WaitForSeconds(2);
+        ifDamageRecently = false;
+    }
+
+    private void ChasePlayer()
+    {
+        navMeshAgent.SetDestination(target.position);
     }
 
     private void OnDrawGizmos()
