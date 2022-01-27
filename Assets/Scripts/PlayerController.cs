@@ -5,12 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] PlayerMovement playerMovement;
-    void Start()
-    {
-        
-    }
 
-    void Update()
+    public void CallPlayerMovement()
     {
         playerMovement.CheckInput();
     }
