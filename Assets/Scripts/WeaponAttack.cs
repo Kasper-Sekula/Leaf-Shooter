@@ -5,7 +5,8 @@ using UnityEngine;
 public class WeaponAttack : MonoBehaviour
 {
     [SerializeField] Camera FPSCamera;
-    public void ProccessRaycastOnMouseButtonDown(int mouseButton)
+    [SerializeField] float damage = 20f;
+    public Transform ProccessRaycastOnMouseButtonDown(int mouseButton)
     {
         if (Input.GetMouseButtonDown(mouseButton))
         {
@@ -14,13 +15,14 @@ public class WeaponAttack : MonoBehaviour
 
             if (isHit)
             {
-                print(raycastHit.transform.name);
-            }
-            else
-            {
-                return;
+                return raycastHit.transform;
             }
         }
+        return null;
+    }
 
+    public float GetWeaponDamage()
+    {
+        return damage;
     }
 }

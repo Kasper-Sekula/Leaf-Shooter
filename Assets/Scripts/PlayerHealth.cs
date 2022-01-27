@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
     public void DealDamage(float amount)
     {
         health -= amount;
-        if (health <0)
+        if (health <= 0)
         {
             print("Player died");
         }

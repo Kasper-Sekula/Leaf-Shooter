@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] EnemyAI enemyAI;
+    [SerializeField] EnemyAI[] enemyAIs;
 
     PlayerHealth playerHealth;
 
     public void GetEnemyAI()
     {
-        enemyAI.CallEnemyAI();
+        if (enemyAIs[0] == null) {return; }
+        foreach (EnemyAI enemy in enemyAIs)
+        {
+            enemy.CallEnemyAI();
+        }
     }
 }

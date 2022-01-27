@@ -8,7 +8,15 @@ public class WeaponController : MonoBehaviour
 
     public void CallWeaponAttack()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Transform shotTarget = weaponAttack.ProccessRaycastOnMouseButtonDown(0);
+            if (shotTarget == null) { return; }
 
-        weaponAttack.ProccessRaycastOnMouseButtonDown(0);
+            EnemyHealth enemyHealth = shotTarget.GetComponent<EnemyHealth>();
+            if (enemyHealth == null) { return; }
+            float damage = weaponAttack.GetWeaponDamage();
+            enemyHealth.TakeDamage(damage);
+        }
     }
 }
