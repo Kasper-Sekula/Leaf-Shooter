@@ -8,6 +8,7 @@ public class WeaponController : MonoBehaviour
 
     public void CallWeaponAttack()
     {
-        weaponAttack.ProccessRaycast();
+
+        weaponAttack.ProccessRaycastOnMouseButtonDown(0);
     }
 }

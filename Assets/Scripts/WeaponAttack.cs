@@ -5,9 +5,9 @@ using UnityEngine;
 public class WeaponAttack : MonoBehaviour
 {
     [SerializeField] Camera FPSCamera;
-    public void ProccessRaycast()
+    public void ProccessRaycastOnMouseButtonDown(int mouseButton)
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(mouseButton))
         {
             RaycastHit raycastHit;
             bool isHit = Physics.Raycast(FPSCamera.transform.position, FPSCamera.transform.forward, out raycastHit);
