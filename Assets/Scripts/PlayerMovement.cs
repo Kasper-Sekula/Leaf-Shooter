@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     const float GRAVITY = -8.81f;
 
+    [SerializeField] Camera playerCamera;
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundDistance = 0.4f;
     [SerializeField] LayerMask groundMask;
@@ -14,10 +15,13 @@ public class PlayerMovement : MonoBehaviour
 
 
     [SerializeField] float movementSpeed = 10f;
+    [SerializeField] float mouseSensitivity = 100f;
     [SerializeField] float sprintSpeed = 20f;
+    
 
     CharacterController characterController;
     bool isGrounded;
+    float xRotation = 0f;
     Vector3 velocity;
 
     private void Awake()
@@ -25,11 +29,17 @@ public class PlayerMovement : MonoBehaviour
         characterController = GetComponent<CharacterController>();
     }
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;    
+    }
+
     public void CheckInput()
     {
         PlayerFreeFall();
         PlayerXZMovement();
         PlayerJump();
+        MouseLook();
     }
 
     private void PlayerFreeFall()
@@ -68,5 +78,17 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * GRAVITY);
         }
+    }
+
+    private void MouseLook()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+        transform.Rotate(Vector3.up * mouseX);
+        playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
     }
 }
