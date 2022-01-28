@@ -8,6 +8,7 @@ public class EnemyAI : MonoBehaviour
 {
     [SerializeField] float chaseRange = 20f;
     [SerializeField] float enemyDamage = 20f;
+    [SerializeField] AudioSource audioSource;
     
     float distanceToPlayer = Mathf.Infinity;
     bool ifDamageRecently = false;
@@ -33,6 +34,7 @@ public class EnemyAI : MonoBehaviour
 
     private void EngagePlayer()
     {
+        if (target == null) { return; }
         distanceToPlayer = Vector3.Distance(transform.position, target.transform.position);
 
         if (distanceToPlayer <= chaseRange)
@@ -45,6 +47,7 @@ public class EnemyAI : MonoBehaviour
                 if (!ifDamageRecently)
                 {
                     target.GetComponent<PlayerHealth>().DealDamage(enemyDamage);
+                    PlayPunchSound();
                     StartCoroutine(AttackPlayer());
                 }
             }
@@ -71,5 +74,10 @@ public class EnemyAI : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, chaseRange);    
+    }
+
+    private void PlayPunchSound()
+    {
+        audioSource.Play();
     }
 }

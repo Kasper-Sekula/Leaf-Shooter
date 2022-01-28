@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerDiedUI.enabled = false;    
-        print("player contr start");
     }
     public void CallPlayerMovement()
     {

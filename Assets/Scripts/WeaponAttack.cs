@@ -9,6 +9,7 @@ public class WeaponAttack : MonoBehaviour
     [SerializeField] Camera FPSCamera;
     [SerializeField] GameObject hitEffect;
     [SerializeField] ParticleSystem muzzleFlash;
+    [SerializeField] AudioSource audioSource;
 
     public Transform ProccessRaycastOnMouseButtonDown(int mouseButton)
     {
@@ -19,6 +20,7 @@ public class WeaponAttack : MonoBehaviour
 
             PlayMuzzleFlash();
             CreateHitImpact(raycastHit);
+            PlayAudioClip();
             if (isHit)
             {
                 return raycastHit.transform;
@@ -36,6 +38,11 @@ public class WeaponAttack : MonoBehaviour
     {
         GameObject impact = Instantiate(hitEffect, ray.point, Quaternion.identity);
         Destroy(impact, 1f);
+    }
+
+    private void PlayAudioClip()
+    {
+        audioSource.Play();
     }
 
     public float GetWeaponDamage()
