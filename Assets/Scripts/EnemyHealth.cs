@@ -13,13 +13,15 @@ public class EnemyHealth : MonoBehaviour
         hitPoints -= damage;
         if (hitPoints <= 0)
         {
-            Die();
+            //isDead = true;
+            Died();
         }
     }
 
-    private void Die()
+    private void Died()
     {
         isDead = true;
         Destroy(gameObject);
+        //return isDead ? true : false;
     }
 }

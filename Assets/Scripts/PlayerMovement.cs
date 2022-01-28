@@ -55,6 +55,11 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z; 
 
+        if (x == 0 && z==0)
+        {
+            return;
+        }
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             characterController.Move(move * sprintSpeed * Time.deltaTime);

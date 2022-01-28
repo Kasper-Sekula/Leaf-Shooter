@@ -17,6 +17,11 @@ public class WeaponController : MonoBehaviour
             if (enemyHealth == null) { return; }
             float damage = weaponAttack.GetWeaponDamage();
             enemyHealth.TakeDamage(damage);
+            // bool checkIfDied = enemyHealth.Died();
+            // if (checkIfDied)
+            // {
+            //     Destroy(enemyHealth);
+            // }
         }
     }
 }

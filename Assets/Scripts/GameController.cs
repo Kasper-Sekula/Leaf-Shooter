@@ -23,6 +23,7 @@ public class GameController : MonoBehaviour
         playerController.CallPlayerMovement();
         playerController.HandlePlayerDeath();
 
+        enemyController.SpawningEnemies();
         enemyController.GetEnemyAI();
 
         weaponController.CallWeaponAttack();
