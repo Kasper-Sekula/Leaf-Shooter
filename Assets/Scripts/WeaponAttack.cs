@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class WeaponAttack : MonoBehaviour
 {
-    [SerializeField] Camera FPSCamera;
     [SerializeField] float damage = 20f;
+    [SerializeField] Camera FPSCamera;
+    [SerializeField] GameObject hitEffect;
     [SerializeField] ParticleSystem muzzleFlash;
+
     public Transform ProccessRaycastOnMouseButtonDown(int mouseButton)
     {
         if (Input.GetMouseButtonDown(mouseButton))
@@ -16,6 +18,7 @@ public class WeaponAttack : MonoBehaviour
             bool isHit = Physics.Raycast(FPSCamera.transform.position, FPSCamera.transform.forward, out raycastHit);
 
             PlayMuzzleFlash();
+            CreateHitImpact(raycastHit);
             if (isHit)
             {
                 return raycastHit.transform;
@@ -27,6 +30,12 @@ public class WeaponAttack : MonoBehaviour
     private void PlayMuzzleFlash()
     {
         muzzleFlash.Play();
+    }
+
+    private void CreateHitImpact(RaycastHit ray)
+    {
+        GameObject impact = Instantiate(hitEffect, ray.point, Quaternion.identity);
+        Destroy(impact, 1f);
     }
 
     public float GetWeaponDamage()
