@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] Canvas playerDiedUI;
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] PlayerHealth playerHealth;
+    
+    bool isPlayerAlive = true;
 
+    private void Start()
+    {
+        playerDiedUI.enabled = false;    
+        print("player contr start");
+    }
     public void CallPlayerMovement()
     {
         playerMovement.CheckInput();
@@ -17,8 +25,15 @@ public class PlayerController : MonoBehaviour
         return playerHealth;
     }
 
-    public void DealDamageToPlayer(float amount)
+    public void HandlePlayerDeath()
     {
-        playerHealth.DealDamage(amount);
+        isPlayerAlive = playerHealth.CheckIfPlayerIsAlive();
+        if (!isPlayerAlive)
+        {
+            playerDiedUI.enabled = true;
+            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 }

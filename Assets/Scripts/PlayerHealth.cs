@@ -13,5 +13,11 @@ public class PlayerHealth : MonoBehaviour
         {
             print("Player died");
         }
+        return;
+    }
+
+    public bool CheckIfPlayerIsAlive()
+    {
+        return health >= 0 ? true : false;
     }
 }
