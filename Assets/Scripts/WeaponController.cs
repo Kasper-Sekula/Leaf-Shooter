@@ -8,7 +8,7 @@ public class WeaponController : MonoBehaviour
 
     public void CallWeaponAttack()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetButton("Fire1"))
         {
             Transform shotTarget = weaponAttack.ProccessRaycastOnMouseButtonDown(0);
             if (shotTarget == null) { return; }
@@ -17,11 +17,7 @@ public class WeaponController : MonoBehaviour
             if (enemyHealth == null) { return; }
             float damage = weaponAttack.GetWeaponDamage();
             enemyHealth.TakeDamage(damage);
-            // bool checkIfDied = enemyHealth.Died();
-            // if (checkIfDied)
-            // {
-            //     Destroy(enemyHealth);
-            // }
         }
     }
+
 }

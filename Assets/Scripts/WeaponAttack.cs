@@ -10,14 +10,16 @@ public class WeaponAttack : MonoBehaviour
     [SerializeField] GameObject hitEffect;
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] AudioSource audioSource;
+    bool canFire = true;
 
     public Transform ProccessRaycastOnMouseButtonDown(int mouseButton)
     {
-        if (Input.GetMouseButtonDown(mouseButton))
+        if (Input.GetButton("Fire1") && canFire)
         {
+            StartCoroutine(CheckIfCanFire());
             RaycastHit raycastHit;
             bool isHit = Physics.Raycast(FPSCamera.transform.position, FPSCamera.transform.forward, out raycastHit);
-
+            print("pressed");
             PlayMuzzleFlash();
             CreateHitImpact(raycastHit);
             PlayAudioClip();
@@ -27,6 +29,13 @@ public class WeaponAttack : MonoBehaviour
             }
         }
         return null;
+    }
+
+    IEnumerator CheckIfCanFire()
+    {
+        canFire = false;
+        yield return new WaitForSeconds(0.2f);
+        canFire = true;
     }
 
     private void PlayMuzzleFlash()
