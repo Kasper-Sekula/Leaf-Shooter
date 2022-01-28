@@ -35,8 +35,8 @@ public class EnemyController : MonoBehaviour
 
     void SpawnEnemy()
     {
-            int xPos = UnityEngine.Random.Range(1,50);
-            int zPos = UnityEngine.Random.Range(1,50);
+            int xPos = UnityEngine.Random.Range(-50,50);
+            int zPos = UnityEngine.Random.Range(-50,50);
             //enemyPrefab.AddComponent
 
             GameObject newEnemy = Instantiate(enemyPrefab, new Vector3( xPos, 1f, zPos), Quaternion.identity);

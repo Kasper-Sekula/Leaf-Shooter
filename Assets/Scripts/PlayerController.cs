@@ -7,8 +7,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Canvas playerDiedUI;
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] PlayerHealth playerHealth;
+    [SerializeField] PlayerHealth treeHealth;
     
     bool isPlayerAlive = true;
+    bool isTreeAlive = true;
 
     private void Start()
     {
@@ -27,7 +29,8 @@ public class PlayerController : MonoBehaviour
     public void HandlePlayerDeath()
     {
         isPlayerAlive = playerHealth.CheckIfPlayerIsAlive();
-        if (!isPlayerAlive)
+        isTreeAlive = treeHealth.CheckIfPlayerIsAlive();
+        if (!isPlayerAlive || !isTreeAlive)
         {
             playerDiedUI.enabled = true;
             Time.timeScale = 0;
